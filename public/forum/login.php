@@ -1,30 +1,52 @@
 <?php
-// if ($_SERVER["REQUEST_METHOD" == "post"]) {
-//     exit;
-// } elseif ($_SERVER["REQUEST_METHOD" == "get"]) {
-//     exit;
-// } else {
-//     exit;
-// }
-?>
+// ログイン名とパスワードが期待したものでない場合はフォームに戻す
+if (
+    empty($_POST["login_name"]) || empty($_POST["pass"])
+    || strlen($_POST["login_name"]) < 3 || 20 < strlen($_POST["login_name"])
+    || strlen($_POST["pass"]) < 6 || 100 < strlen($_POST["pass"])
+) {
+    header("HTTP/1.1 302 Found");
+    header("Location: ./login_form.php?error=1");
+    return;
+}
 
-<!DOCTYPE html>
-<html lang="ja">
+// database
+$dbhost = "database-1.cmjpznuslfdx.us-east-1.rds.amazonaws.com";
+$dbname = "test";
+$dsn = "mysql:host={$dbhost}; dbname={$dbname};";
+$user = "admin";
+$pass = "password";
+try {
+    $dbh = new PDO($dsn, $user, $pass);
+} catch (PDOException $e) {
+    echo "Error: {$e->getMessage()}¥n";
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login page</title>
-</head>
+$stmt = $dbh->prepare("SELECT * FROM users WHERE name=:login_name");
+$stmt->execute(array(
+    ":login_name" => $_POST["login_name"]
+));
+$rows = $stmt->fetchAll();
 
-<body>
-    <h1>ログイン</h1>
-    <form action="login.php" method="post">
-        NAME: <input type="text" name="name" id="name"><br>
-        PW: <input type="password" name="pass" id="pass"><br>
-        <button type="submit">ログイン</button>
-    </form>
-</body>
+if (empty($rows)) {
+    // ログイン名が正しくない場合
+    header("HTTP/1.1 302 Found");
+    header("Location: ./index.php?error=1");
+    return;
+}
 
-</html>
+$user = $rows[0];
+
+if (!password_verify($_POST["pass"], $user["pass"])) {
+    // パスワードが正しくない場合
+    header("HTTP/1.1 302 Found");
+    header("Location: ./index.php?error=1");
+    return;
+}
+// セッション開始
+session_start();
+// セッションパラメータ user_login_name にユーザー名格納
+$_SESSION["user_login_name"] = $user["name"];
+// ログイン完了
+header("HTTP/1.1 303 See Other");
+header("Location: ./login_finish.php");
