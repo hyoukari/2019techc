@@ -1,0 +1,7 @@
+CREATE TABLE forum (
+    id INT(8) AUTO_INCREMENT NOT NULL,
+    name VARCHAR(30) DEFAULT "UNKNOWN",
+    content TEXT,
+    date TIMESTAMP,
+    PRIMARY KEY(id)
+);
