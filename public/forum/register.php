@@ -11,11 +11,11 @@ if (
 }
 
 // database
-$dbhost = "database-1.cmjpznuslfdx.us-east-1.rds.amazonaws.com";
-$dbname = "test";
+$dbhost = "localhost";
+$dbname = "hyoukaridb";
 $dsn = "mysql:host={$dbhost}; dbname={$dbname};";
-$user = "admin";
-$pass = "password";
+$user = "root";
+$pass = "";
 try {
     $dbh = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {

@@ -7,14 +7,17 @@ $csrfToken = bin2hex($tokenByte);
 $_SESSION["csrfToken"] = $csrfToken;
 
 // database
-$dbhost = "database-1.cmjpznuslfdx.us-east-1.rds.amazonaws.com";
-$dbname = "test";
+// $dbhost = "database-1.cmjpznuslfdx.us-east-1.rds.amazonaws.com";
+// $dbname = "test";
+$dbhost = "172.24.0.1";
+$dbname = "hyoukaridb";
 $dsn = "mysql:host={$dbhost}; dbname={$dbname};";
-$user = "admin";
-$pass = "password";
+$user = "root";
+$pass = "";
 try {
     $dbh = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
+    return var_dump($e);
     echo "Error: {$e->getMessage()}¥n";
 }
 
