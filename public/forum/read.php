@@ -9,11 +9,11 @@ $_SESSION["csrfToken"] = $csrfToken;
 // database
 // $dbhost = "database-1.cmjpznuslfdx.us-east-1.rds.amazonaws.com";
 // $dbname = "test";
-$dbhost = "172.24.0.1";
+$dbhost = "db";
 $dbname = "hyoukaridb";
+$user = "app_username";
+$pass = "app_password";
 $dsn = "mysql:host={$dbhost}; dbname={$dbname};";
-$user = "root";
-$pass = "";
 try {
     $dbh = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
@@ -27,6 +27,8 @@ $result = $stmt->fetchAll();
 // var_dump($result);
 
 // 内容表示
+session_start();
+
 echo "<h1>" . "掲示板" . "</h1>";
 
 foreach ($result as $value) {
@@ -39,4 +41,4 @@ foreach ($result as $value) {
     echo "</p>";
 }
 
-require_once("index.html");
+require_once("read.html");

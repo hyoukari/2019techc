@@ -20,7 +20,7 @@
     ?>
     <form action="login.php" method="post">
         NAME: <input type="text" name="login_name" id="login_name"><br>
-        PW: <input type="password" name="pass" id="pass"><br>
+        PW: <input type="password" name="password" id="password"><br>
         <button type="submit">ログイン</button>
     </form>
 </body>

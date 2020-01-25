@@ -21,9 +21,10 @@
             NAME: <input type="text" name="login_name" minlength="3" maxlength="20">
         </div>
         <div>
-            PW: <input type="password" name="pass" minlength="6" maxlength="100">
+            PW: <input type="password" name="password" minlength="6" maxlength="100">
         </div>
-        <input type="submit" value="登録">
+        <button type="submit">登録</button>
+        <button type="button" onclick="location.href='./index.php'">戻る</button>
     </form>
 </body>
 

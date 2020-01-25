@@ -2,15 +2,17 @@ CREATE TABLE forum (
     id SERIAL,
     name VARCHAR(30) DEFAULT "UNKNOWN",
     content TEXT,
-    image_path VARCHAR(300);
+    image_path VARCHAR(300),
     create_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(id)
 );
 --
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id SERIAL,
     login_name VARCHAR(30) NOT NULL,
     password TEXT NOT NULL,
-    create_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    user_icon VARCHAR(300),
+    create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id)
 );

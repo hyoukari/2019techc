@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Forum</title>
+</head>
+
+<body>
+    <hr>
+    <form action="write.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrf" value="{$csrfToken}">
+        <div>
+            <button>書き込み</button>
+            <span>
+                <label for="name">名前:</label><input type="text" name="name" id="name" placeholder="名前を入力"
+                    value="<?php echo $_SESSION['user_login_name'] ?>" readonly>
+            </span>
+            <span>
+                <label for="upload_image">添付画像:</label><input type="file" name="upload_image" id="upload_image"
+                    accept="image/*">
+            </span>
+            <!-- <label for="email">E-mail:</label><input type="text" name="email" id="email"> -->
+        </div>
+        <textarea name="content" id="content" cols="80" rows="10" placeholder="内容を入力"></textarea>
+    </form>
+</body>
+
+</html>

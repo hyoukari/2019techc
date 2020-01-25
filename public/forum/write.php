@@ -46,11 +46,11 @@ if ($_FILES['upload_image']['size'] > 0) {
 
 
 // database
-$dbhost = "localhost";
+$dbhost = "db";
 $dbname = "hyoukaridb";
+$user = "app_username";
+$pass = "app_password";
 $dsn = "mysql:host={$dbhost}; dbname={$dbname}";
-$user = "root";
-$pass = "";
 try {
     $dbh = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {

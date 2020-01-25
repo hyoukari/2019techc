@@ -11,17 +11,17 @@ if (
 }
 
 // database
-$dbhost = "localhost";
+$dbhost = "db";
 $dbname = "hyoukaridb";
+$user = "app_username";
+$pass = "app_password";
 $dsn = "mysql:host={$dbhost}; dbname={$dbname};";
-$user = "root";
-$pass = "";
 try {
     $dbh = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
     echo "Error: {$e->getMessage()}¥n";
 }
-$select_stn = $dbh->prepare("SELECT COUNT(id) FROM users WHERE name=:login_name");
+$select_stn = $dbh->prepare("SELECT COUNT(id) FROM users WHERE login_name=:login_name");
 $select_stn->execute(array(
     ":login_name" => $_POST["login_name"]
 ));
@@ -34,9 +34,9 @@ if ($rows[0][0] !== "0") {
 }
 
 // パスワードのハッシュ化
-$password = password_hash($_POST["pass"], PASSWORD_DEFAULT);
+$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 // INSERTする
-$insert_sth = $dbh->prepare("INSERT INTO users (name, pass) VALUES (:login_name, :password)");
+$insert_sth = $dbh->prepare("INSERT INTO users (login_name, password) VALUES (:login_name, :password)");
 $insert_sth->execute(array(
     ":login_name" => $_POST["login_name"],
     ":password" => $password,
